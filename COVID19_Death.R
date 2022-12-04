@@ -4,9 +4,7 @@ library(argo)
 library(forecast)
 
 us_national <- fread("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv") #New York Times 
-#us_counties <- read.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv") #daily updated data from NY Times github
 us_states <- fread("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv")
-#us_states <-read.csv("~/Documents/Georgia_Tech/Research at GATECH/Research with Dr. Shihao Yang/COVID-19/us-states-2021-02-17.csv") 
 
 us_national <- data.table(us_national)
 us_national$new_cases <- c(0, diff(us_national$cases)) #new cases=lag of totalcases (today-yesterday)
@@ -15,7 +13,7 @@ us_national$date <- as.Date(us_national$date)
 plot(us_national$date, us_national$new_cases)
 plot(us_national$date, us_national$daily_deaths)
 
-gt.folder <- "~/US-covid19-api_raw_results-2022-08-14"
+gt.folder <- "./US-covid19-api_raw_results-2022-08-14"
 #gt.folder <- "C:/Users/Steven Ma/Dropbox (GaTech)/Backup/Georgia_Tech/Research at GATECH/Research with Dr. Shihao Yang/COVID-19/US-covid19-api_raw_results-2020-09-20"
 files <- list.files(gt.folder) #get all files name as string and combine as list (in order to use lapply)
 f <- files[1]
@@ -58,7 +56,7 @@ gtdata_daily_state <- tapply(gtdata_all, all_geo, function(gt.eachstate){ #for e
 # Get national level death and cases and State level death and cases
 covid_nat_incre <- xts(us_national[,.(new_cases, daily_deaths)], us_national$date) #select national new cases and daily death, make date as index
 # Get State level death and cases
-population.file <- "~/Population.csv" #gives population of each state and which region it belongs
+population.file <- "./Population.csv" #gives population of each state and which region it belongs
 state_region_info <- fread(population.file)
 state_region_info$Population <- as.numeric(gsub(",", "", state_region_info$Population))
 state_region_info$Abbre = paste0('US-',state_region_info$Abbre)
@@ -368,9 +366,6 @@ if (FALSE){ # Fit one linear model use all data find the best lag and see if the
     rownames(beta_MedRaw_mat) = c("Intercept", terms)
     for (i in 1:length(gt_lag)){
       temp_lm_medRaw = lm(covid_national_level$daily_deaths[temp_date]~ gt_train_cur[temp_date,i])
-      #temp_lm_medRaw = lm(covid_national_level$new_cases[temp_date]~ gt_train_cur[temp_date,i])
-      #temp_lm_medRaw = lm(CovidTracking_national_level$daily_deaths[temp_date]~ gt_train_cur[temp_date,i])
-      #temp_lm_medRaw = lm(temp_nat_death[temp_date]~ gt_train_cur[temp_date,i])
       beta_MedRaw_mat[,i] = coef(temp_lm_medRaw)
       resid_MSE_MedRaw[terms,i] = sum(temp_lm_medRaw$residuals^2)
       sandwich_se = diag(sandwich::vcovHAC(temp_lm_medRaw))[2]^0.5
@@ -584,7 +579,7 @@ if (!if_use_imputed_flu){
   impute_samples = 1
 }
 if (if_use_hosp){
-  hosp<-read.csv("~/truth-Incident Hospitalizations.csv")
+  hosp<-read.csv("./truth-Incident Hospitalizations.csv")
   national_hosp<-hosp[hosp$location_name=="United States",]
   national_hosp<-xts(national_hosp$value,order.by = as.Date(national_hosp$date))
   colnames(national_hosp)<-"US_incidient_hosp"
