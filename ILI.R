@@ -10,7 +10,7 @@ library(parallel)
 library(boot)
 library(abind)
 
-current_dic = "~/"
+current_dic = "./"
 GTpub_all <- "api_raw_results-2022-09-11"
 population.file <- paste0(current_dic, "Population.csv")
 GTpub_version <- paste0(GTpub_all, "/")
