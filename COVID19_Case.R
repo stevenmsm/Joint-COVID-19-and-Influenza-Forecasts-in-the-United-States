@@ -13,7 +13,7 @@ us_national$date <- as.Date(us_national$date)
 plot(us_national$date, us_national$new_cases)
 plot(us_national$date, us_national$daily_deaths)
 
-gt.folder <- "~/US-covid19-api_raw_results-2022-08-14"
+gt.folder <- "./US-covid19-api_raw_results-2022-08-14"
 #gt.folder <- "C:/Users/Steven Ma/Dropbox (GaTech)/Backup/Georgia_Tech/Research at GATECH/Research with Dr. Shihao Yang/COVID-19/US-covid19-api_raw_results-2020-09-20"
 files <- list.files(gt.folder) #get all files name as string and combine as list (in order to use lapply)
 f <- files[1]
@@ -56,7 +56,7 @@ gtdata_daily_state <- tapply(gtdata_all, all_geo, function(gt.eachstate){ #for e
 # Get national level death and cases and State level death and cases
 covid_nat_incre <- xts(us_national[,.(new_cases, daily_deaths)], us_national$date) #select national new cases and daily death, make date as index
 # Get State level death and cases
-population.file <- "~/Population.csv" #gives population of each state and which region it belongs
+population.file <- "./Population.csv" #gives population of each state and which region it belongs
 state_region_info <- fread(population.file)
 state_region_info$Population <- as.numeric(gsub(",", "", state_region_info$Population))
 state_region_info$Abbre = paste0('US-',state_region_info$Abbre)
