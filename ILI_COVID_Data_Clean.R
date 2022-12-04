@@ -36,7 +36,7 @@ for (i in 1:length(unique_states)){
 ili_state = do.call(cbind, state_i)
 colnames(ili_state) = unique_states
 
-population.file <- "~/Population.csv" 
+population.file <- "./Population.csv" 
 state_region_info <- fread(population.file)
 state_region_info$Population <- as.numeric(gsub(",", "", state_region_info$Population))
 
