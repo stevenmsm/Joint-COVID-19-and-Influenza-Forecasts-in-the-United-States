@@ -579,7 +579,7 @@ if (!if_use_imputed_flu){
   impute_samples = 1
 }
 if (if_use_hosp){
-  hosp<-read.csv("./truth-Incident Hospitalizations.csv")
+  hosp<-fread("https://media.githubusercontent.com/media/reichlab/covid19-forecast-hub/master/data-truth/truth-Incident%20Hospitalizations.csv")
   national_hosp<-hosp[hosp$location_name=="United States",]
   national_hosp<-xts(national_hosp$value,order.by = as.Date(national_hosp$date))
   colnames(national_hosp)<-"US_incidient_hosp"
