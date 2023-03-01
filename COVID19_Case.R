@@ -56,7 +56,7 @@ gtdata_daily_state <- tapply(gtdata_all, all_geo, function(gt.eachstate){ #for e
 # Get national level death and cases and State level death and cases
 covid_nat_incre <- xts(us_national[,.(new_cases, daily_deaths)], us_national$date) #select national new cases and daily death, make date as index
 # Get State level death and cases
-population.file <- "./Population.csv" #gives population of each state and which region it belongs
+population.file <- "https://www2.census.gov/programs-surveys/popest/datasets/2020-2021/state/asrh/sc-est2021-agesex-civ.csv" #gives population of each state and which region it belongs
 state_region_info <- fread(population.file)
 state_region_info$Population <- as.numeric(gsub(",", "", state_region_info$Population))
 state_region_info$Abbre = paste0('US-',state_region_info$Abbre)
