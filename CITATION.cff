@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use the code in this repository, please cite it as below."
+authors:
+- family-names: "Ma"
+  given-names: "Simin"
+title: "Replication Code for: Joint COVID-19 and Influenza-like Illness Forecasts in the United States using Internet Search Information"
+version: 2.0.4
+doi: 10.5281/zenodo.7690172
+date-released: 2023-03-01
+url: "https://zenodo.org/badge/latestdoi/476787213"
